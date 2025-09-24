@@ -41,15 +41,34 @@ def serialize_animal(animal_data):
     return output
 
 
+def ask_skin_type(animals_data):
+    """ Returns skin type chosen by user """
+    skin_types = sorted(set([animal_data['characteristics']['skin_type']
+                             for animal_data in animals_data]))
+    print("Available skin types:")
+    print("\n".join(f"- {item}" for item in skin_types))
+
+    while True:
+        skin_type = input("\nChoose one: ")
+        if skin_type.capitalize() in skin_types:
+            return skin_type
+        else:
+            print("Please enter a skin type from the list")
+
+
+
 def main():
     """ Works with input data and modifies the loaded html files """
     animals_data = load_data('animals_data.json')
 
     orig_html_file = read_write_file('animals_template.html', 'read')
 
+    skin_type_by_user = ask_skin_type(animals_data)
+
     output = ''
     for animal_data in animals_data:
-        output += serialize_animal(animal_data)
+        if animal_data['characteristics']['skin_type'] == skin_type_by_user.capitalize():
+            output += serialize_animal(animal_data)
 
     new_html_file = orig_html_file.replace('__REPLACE_ANIMALS_INFO__', output)
     read_write_file('animals.html', 'write', new_html_file)
