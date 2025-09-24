@@ -1,2 +1,0 @@
-# Zootopia
-HTML + CSS + Python
