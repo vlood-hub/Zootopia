@@ -14,11 +14,13 @@ with open("animals_template.html", "r", encoding="utf8") as filein:
 
 output = ''
 for animal_data in animals_data:
-    output += f"Name: {animal_data['name']}\n"
-    output += f"Diet: {animal_data['characteristics']['diet']}\n"
-    output += f"Location: {animal_data['locations'][0]}\n"
+    output += '<li class="cards__item">'
+    output += f"Name: {animal_data['name']}<br/>"
+    output += f"Diet: {animal_data['characteristics']['diet']}<br/>"
+    output += f"Location: {animal_data['locations'][0]}<br/>"
     try:
-        output += f"{animal_data['characteristics']['type']}\n"
+        output += f"Type: {animal_data['characteristics']['type']}<br/>"
+        output += '</li>'
     except KeyError:
        print()
        continue
